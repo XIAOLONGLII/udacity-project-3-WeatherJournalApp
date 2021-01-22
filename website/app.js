@@ -32,21 +32,24 @@ let zipCode = document.getElementById('zip').value;
 document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e) {
     zipCode = document.getElementById('zip').value;
-    //console.log(zipCode);
+    console.log(zipCode);
     getZipcode(baseURL, zipCode, apiKey)
     .then(function(data) {
-        postData('/all', {newDate: newDate, temp: data.temp, content: data.content})
+        console.log(data); 
+        postData('/all', {temp:data.main.temp, date:newDate, content:data.weather})
+       
     })
-    .then(
-        updateUI()
-    );
+    .then( updateUI())
+
 }
 
 const getZipcode = async(baseURL, zipCode, apiKey) => {
     const result = await fetch(baseURL+zipCode+apiKey);
+    console.log('result: '+result);
     try {
         const data = await result.json();
         console.log(data);
+        return data;
     }
     catch(error) {
         console.log('error: '+ error);
@@ -55,14 +58,17 @@ const getZipcode = async(baseURL, zipCode, apiKey) => {
 //doc: Finally, chain another Promise that updates the UI dynamically 
 const updateUI = async() => {
     const result = await fetch(baseURL+zipCode+apiKey);
+    console.log('working?');
     try {
-        const allData = await request.json();
+        const allData = await result.json();
+        console.log('allData===');
+        console.log(allData);
         document.getElementById('temp').innerHTML = allData[0].temp;
         document.getElementById('date').innerHTML = allData[0].date;
         document.getElementById('content').innerHTML = allData[0].content;
 
     }catch(error) {
-        console.log('error: '+ error);
+        console.log('error: ', error);
     }
 };
 

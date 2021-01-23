@@ -58,12 +58,13 @@ const updateUI = async() => {
         console.log(allData[0]);
         document.getElementById('location').innerHTML = "location: "+allData[0].content.name;
         document.getElementById('temp').innerHTML = "tempeture: "+allData[0].content.main.temp + " feels like " + allData[0].content.main.feels_like;
-        document.getElementById('date').innerHTML = "Today's date: " +allData[0].date;
+        document.getElementById('date').innerHTML = "Today's date: " +allData[0].body.date;
         document.getElementById('humidity:').innerHTML = "Today's humidity: "+allData[0].content.main.humidity;
         document.getElementById('weather').innerHTML = "Today's weather: " +allData[0].content.weather[0].main + ", descprtion: " + allData[0].content.weather[0].description; 
+        document.querySelector('.title').innerHTML = "Today you are feeling " + document.querySelector('#feelings').value;
+
     }catch(error) {
         console.log('error: ', error);
     }
 };
-//Update "Most Recent Entry" to "user input"
-document.querySelector('.title').innerHTML = document.querySelector('#feelings').value;
+

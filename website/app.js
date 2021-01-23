@@ -32,9 +32,9 @@ let zipCode = document.getElementById('zip').value;
 const regex = /^[0-9]+$/;
 document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e) {
-    if(zipCode.value == '' || zipCode.match(regex)) {
-        alert(`zipcode can't be empty!`);
-    }
+    // if(zipCode.value == '' || zipCode.match(regex)) {
+    //     alert(`zipcode can't be empty!`);
+    // }
     zipCode = document.getElementById('zip').value;
     console.log(zipCode);
     
@@ -62,12 +62,12 @@ const updateUI = async() => {
     const result = await fetch('/all');
     try {
         const allData = await result.json();
-        console.log(allData[0]);
-        document.getElementById('location').innerHTML = "location: "+allData[0].content.name;
-        document.getElementById('temp').innerHTML = "tempeture: "+allData[0].content.main.temp + " feels like " + allData[0].content.main.feels_like;
-        document.getElementById('date').innerHTML = "Today's date: " +allData[0].body.date;
-        document.getElementById('humidity:').innerHTML = "Today's humidity: "+allData[0].content.main.humidity;
-        document.getElementById('weather').innerHTML = "Today's weather: " +allData[0].content.weather[0].main + ", descprtion: " + allData[0].content.weather[0].description; 
+        console.log(allData);
+        document.getElementById('location').innerHTML = "location: "+allData.content.name;
+        document.getElementById('temp').innerHTML = "tempeture: "+allData.content.main.temp + " feels like " + allData.content.main.feels_like;
+        document.getElementById('date').innerHTML = "Today's date: " +allData.body.date;
+        document.getElementById('humidity:').innerHTML = "Today's humidity: "+allData.content.main.humidity;
+        document.getElementById('weather').innerHTML = "Today's weather: " +allData.content.weather.main + ", descprtion: " + allData.content.weather[0].description; 
         document.querySelector('.title').innerHTML = "Today you are feeling " + document.querySelector('#feelings').value;
 
     }catch(error) {

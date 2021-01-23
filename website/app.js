@@ -32,7 +32,7 @@ let zipCode = document.getElementById('zip').value;
 const regex = /^[0-9]+$/;
 document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e) {
-    if(zipCode.value == ' ' || zipCode.match(regex)) {
+    if(zipCode.value == '' || zipCode.match(regex)) {
         alert(`zipcode can't be empty!`);
     }
     zipCode = document.getElementById('zip').value;

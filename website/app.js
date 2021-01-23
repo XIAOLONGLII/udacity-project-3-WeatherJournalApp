@@ -67,7 +67,7 @@ const updateUI = async() => {
         document.getElementById('location').innerHTML = "location: "+allData.content.name;
         document.getElementById('temp').innerHTML = "tempeture: "+allData.content.main.temp + " feels like " + allData.content.main.feels_like;
         document.getElementById('date').innerHTML = "Today's date: " +allData.body.date;
-        document.getElementById('humidity:').innerHTML = "Today's humidity: "+allData.content.main.humidity;
+        document.getElementById('humidity').innerHTML = "Today's humidity: "+allData.content.main.humidity;
         document.getElementById('weather').innerHTML = "Today's weather: " +allData.content.weather.main + ", descprtion: " + allData.content.weather[0].description; 
         document.querySelector('.title').innerHTML = "Today you are feeling " + document.querySelector('#feelings').value;
 

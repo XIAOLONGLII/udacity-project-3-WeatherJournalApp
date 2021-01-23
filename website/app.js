@@ -1,10 +1,10 @@
 /* Global Variables */
 // api.openweathermap.org/data/2.5/weather?zip={zip code}&appid={API key} 
-let baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
-let apiKey = "&appid=be54761f3c8d3fba4b50dc1e316cfc6b";
+const baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
+const apiKey = "&appid=be54761f3c8d3fba4b50dc1e316cfc6b";
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'/'+ d.getDate()+'/'+ d.getFullYear();
+let newDate = d.getMonth()+ 1 + '/'+ d.getDate()+'/'+ d.getFullYear();
 
 //doc: Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API.
 
@@ -20,7 +20,6 @@ const postData = async ( url = '', data = {})=>{
     });
       try {
         const newData = await response.json();
-        //console.log(newData);
         return newData;
       }catch(error) {
         console.log("error", error);
@@ -32,12 +31,10 @@ let zipCode = document.getElementById('zip').value;
 document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e) {
     zipCode = document.getElementById('zip').value;
-    console.log(zipCode);
     getZipcode(baseURL, zipCode, apiKey)
     .then(function(data) {
-        console.log('data: '+data); 
         postData('/all', {temp:data.main.temp, date:newDate, content:data})
-        .then( updateUI())
+        .then(updateUI()) //doc: Finally, chain another Promise that updates the UI dynamically 
     })
 }
 
@@ -53,7 +50,7 @@ const getZipcode = async(baseURL, zipCode, apiKey) => {
         console.log('error: '+ error);
     }
 };
-//doc: Finally, chain another Promise that updates the UI dynamically 
+
 const updateUI = async() => {
     const result = await fetch('/all');
     try {
@@ -64,9 +61,9 @@ const updateUI = async() => {
         document.getElementById('date').innerHTML = "Today's date: " +allData[0].date;
         document.getElementById('humidity:').innerHTML = "Today's humidity: "+allData[0].content.main.humidity;
         document.getElementById('weather').innerHTML = "Today's weather: " +allData[0].content.weather[0].main + ", descprtion: " + allData[0].content.weather[0].description; 
-
     }catch(error) {
         console.log('error: ', error);
     }
 };
-
+//Update "Most Recent Entry" to "user input"
+document.querySelector('.title').innerHTML = document.querySelector('#feelings').value;

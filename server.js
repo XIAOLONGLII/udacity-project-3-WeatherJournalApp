@@ -41,7 +41,7 @@ app.post('/all', function(req, res) {
         body: req.body,
         location: req.body.content.name,
         temp: req.body.temp,
-        date: req.body.date,
+        Date: req.body.date,
         content: req.body.content,
         weather: req.body.content.weather[0]
     }

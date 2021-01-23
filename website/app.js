@@ -4,7 +4,7 @@ let baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 let apiKey = "&appid=be54761f3c8d3fba4b50dc1e316cfc6b";
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth()+'/'+ d.getDate()+'/'+ d.getFullYear();
 
 //doc: Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API.
 
@@ -20,7 +20,7 @@ const postData = async ( url = '', data = {})=>{
     });
       try {
         const newData = await response.json();
-        console.log(newData);
+        //console.log(newData);
         return newData;
       }catch(error) {
         console.log("error", error);
@@ -35,17 +35,15 @@ function performAction(e) {
     console.log(zipCode);
     getZipcode(baseURL, zipCode, apiKey)
     .then(function(data) {
-        console.log(data); 
-        postData('/all', {temp:data.main.temp, date:newDate, content:data.weather})
-       
+        console.log('data: '+data); 
+        postData('/all', {temp:data.main.temp, date:newDate, content:data})
+        .then( updateUI())
     })
-    .then( updateUI())
-
 }
 
 const getZipcode = async(baseURL, zipCode, apiKey) => {
     const result = await fetch(baseURL+zipCode+apiKey);
-    console.log('result: '+result);
+    //console.log('result: '+result);
     try {
         const data = await result.json();
         console.log(data);
@@ -57,15 +55,15 @@ const getZipcode = async(baseURL, zipCode, apiKey) => {
 };
 //doc: Finally, chain another Promise that updates the UI dynamically 
 const updateUI = async() => {
-    const result = await fetch(baseURL+zipCode+apiKey);
-    console.log('working?');
+    const result = await fetch('/all');
     try {
         const allData = await result.json();
-        console.log('allData===');
-        console.log(allData);
-        document.getElementById('temp').innerHTML = allData[0].temp;
-        document.getElementById('date').innerHTML = allData[0].date;
-        document.getElementById('content').innerHTML = allData[0].content;
+        console.log(allData[0]);
+        document.getElementById('location').innerHTML = "location: "+allData[0].content.name;
+        document.getElementById('temp').innerHTML = "tempeture: "+allData[0].content.main.temp + " feels like " + allData[0].content.main.feels_like;
+        document.getElementById('date').innerHTML = "Today's date: " +allData[0].date;
+        document.getElementById('humidity:').innerHTML = "Today's humidity: "+allData[0].content.main.humidity;
+        document.getElementById('weather').innerHTML = "Today's weather: " +allData[0].content.weather[0].main + ", descprtion: " + allData[0].content.weather[0].description; 
 
     }catch(error) {
         console.log('error: ', error);

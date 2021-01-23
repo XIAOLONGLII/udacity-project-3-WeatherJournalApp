@@ -31,16 +31,19 @@ function listening() {
 
 // Callback function to complete GET '/all'
 app.get('/all', function(req, res) {
-    console.log(req);
-    res.send('request send!');
-    return projectData;
+    //console.log(req);
+    res.send(projectData);
+    //return projectData;
 });
 // Post Route
 app.post('/all', function(req, res) {
     newEntry = {
+        body: req.body,
+        location: req.body.content.name,
         temp: req.body.temp,
         date: req.body.date,
-        content: req.body.content
+        content: req.body.content,
+        weather: req.body.content.weather[0]
     }
     projectData.push(newEntry);
     res.send(projectData);

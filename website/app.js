@@ -35,7 +35,7 @@ function performAction(e) {
 
     zipCode = document.getElementById('zip').value;
     if(zipCode.value === '' || !zipCode.match(regex)) {
-        alert(`invalid zipcode`);
+        alert(`ipcode can't be empty or contain alphabets!`);
     }
     console.log(zipCode);
     

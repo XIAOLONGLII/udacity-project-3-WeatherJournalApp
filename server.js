@@ -30,13 +30,11 @@ function listening() {
 // Initialize all route with a callback function
 
 // Callback function to complete GET '/all'
-app.get('/all', function(req, res) {
-    //console.log(req);
+app.get('/body', function(req, res) {
     res.send(projectData);
-    //return projectData;
 });
 // Post Route
-app.post('/all', function(req, res) {
+app.post('/body', function(req, res) {
     newEntry = {
         body: req.body,
         location: req.body.content.name,
